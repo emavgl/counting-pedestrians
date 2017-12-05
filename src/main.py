@@ -296,15 +296,22 @@ if __name__ == "__main__":
     line_left = GoalLine((100,250), (100,frame_height), Position.LEFT)
     line_right = GoalLine((290,250), (290, frame_height), Position.RIGHT)
     line_top = GoalLine((70,350), (600, 350), Position.TOP)
-    line_bottom = GoalLine((150,400), (300, 400), Position.BOTTOM)
+    line_bottom = GoalLine((160,430), (310, 430), Position.BOTTOM)
 
     fgbg_left = cv2.createBackgroundSubtractorMOG2(varThreshold=25, detectShadows=False)
     fgbg_right = cv2.createBackgroundSubtractorMOG2(varThreshold=120, detectShadows=False)
     fgbg_top = cv2.createBackgroundSubtractorMOG2(varThreshold=25, detectShadows=False)
-    fgbg_bottom = cv2.createBackgroundSubtractorMOG2(varThreshold=200, detectShadows=False)
+    fgbg_bottom = cv2.createBackgroundSubtractorMOG2(varThreshold=120, detectShadows=False)
+
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out_left = cv2.VideoWriter('left_output.avi', fourcc, 30.0, (500, 500))
+    out_right = cv2.VideoWriter('right_output.avi', fourcc, 30.0, (500, 500))
+    out_top = cv2.VideoWriter('top_output.avi', fourcc, 30.0, (600, 500))
+    out_bottom = cv2.VideoWriter('bottom_output.avi', fourcc, 30.0, (600, 500))
 
     blobs_list = [[], [], [], []]
     fgbg_top_list = [fgbg_left, fgbg_right, fgbg_top, fgbg_bottom]
+    video_writers = [out_left, out_right, out_top, out_bottom]
 
     frame_counter = 1
 
@@ -322,8 +329,6 @@ if __name__ == "__main__":
         
         height, width, channels = frame.shape
 
-        # destra
-        # cropped = frame[int(height / 3): int(height / 3) + 500, width-500:width]
         cropped_left = frame[int(height / 3): int(height / 3) + 500, 0:500]
         cropped_right = frame[int(height / 3): int(height / 3) + 500, width-500:width]
         cropped_top = frame[0:500, int(width / 3)-100:int(width / 3)+500]
@@ -340,6 +345,7 @@ if __name__ == "__main__":
             line = lines[i]
             blobs = blobs_list[i]
             fgbg = fgbg_top_list[i]
+            video_writer = video_writers[i]
  
             # call detector using frame difference
             detected = detectObjects(cropped, fgbg)
@@ -366,10 +372,11 @@ if __name__ == "__main__":
                     line.intersect(blob)
 
             line.drawScore(cropped_to_draw)
-            small_img = cv2.resize(cropped_to_draw, (0,0), fx=0.5, fy=0.5) 
+            small_img = cv2.resize(cropped_to_draw, (0,0), fx=0.5, fy=0.5)
+            #video_writer.write(cropped_to_draw)
             cv2.imshow('frame' + str(i), small_img)
 
-        k = cv2.waitKey(5) & 0xff
+        k = cv2.waitKey(1) & 0xff
         if k == 27:
             break
 

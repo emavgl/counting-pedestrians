@@ -1,7 +1,6 @@
 # Assignment Computer Vision
 
-![result-image](res/sample.PNG "Result")
-
+![result-image](img/sample.PNG "Result")
 ## Task Description
 The objective of the assignment is to count the number of pedestrians and cyclists entering and exiting the main four gates in the video (top, bottom, left, right).
 
@@ -18,7 +17,7 @@ The input video belongs to the [Stanford Drone Dataset - Gates](http://cvgl.stan
 python3 src/main.py <video-path>
 ```
 
-If no video path is specified, it will use "res/video.mov" as default argument.
+if no video path is specified, it will use "res/video.mov" as default argument.
 
 ## Brief overview
 For each frame of the video, the script performs a background subtraction, using the implementation [MOG2](https://docs.opencv.org/3.1.0/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html), in order to recognize the object
@@ -44,9 +43,17 @@ The submitted implementation is the results of tons of tests: changing both para
 
 Scores (entering, exiting):
 
-Left (112, 169)  
-Right (116, 147)  
-Top (117, 108)  
-Bottom (120, 84)
+**Left (112, 169)**
+Video:
+https://drive.google.com/file/d/1UqKTZjZyq43w10sT6k8yCrLg0UG-snqL/view?usp=sharing
 
-Video is available here: https://drive.google.com/file/d/1KrFyDpMvR4zEVk7fsSoeEIQbpbOhkO8-/view?usp=sharing
+**Right (116, 147)**
+Video: 
+https://drive.google.com/file/d/1ouoIE2jJoP_BZqy89Ofw1MPz-FC5-jQ_/view?usp=sharing
+
+**Top (117, 108)**
+Video: https://drive.google.com/file/d/1bEUDZTnU6lG0d4zVSn8FHz8xBjLGgBlm/view?usp=sharing
+
+**Bottom (103, 80)**
+Video:
+https://drive.google.com/file/d/18uey0orYpNs1H7pJu7ZE2jzhMUR1f5Ur/view?usp=sharing
